@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul TWK CPNS 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --merah: #C0392B;
+    --merah-muda: #E74C3C;
+    --merah-gelap: #922B21;
+    --putih: #FDFCF8;
+    --krem: #F5F0E8;
+    --abu: #E8E2D9;
+    --abu-tua: #8C8070;
+    --teks: #1A1410;
+    --teks-muda: #4A3F35;
+    --emas: #C8A951;
+    --biru: #1B4F72;
+    --hijau: #1A6B3C;
+    --ungu: #5B2C6F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--putih);
+    color: var(--teks);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--merah-gelap);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--emas);
+  }
+  .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .header-badge {
+    background: var(--emas);
+    color: var(--merah-gelap);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--putih);
+    letter-spacing: 0.3px;
+  }
+  .header-subtitle {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* NAV TABS */
+  .nav-wrap {
+    background: var(--krem);
+    border-bottom: 1px solid var(--abu);
+    position: sticky;
+    top: 57px;
+    z-index: 99;
+  }
+  .nav {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    flex: none;
+    padding: 12px 18px;
+    font-size: 12.5px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    color: var(--abu-tua);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nav-btn:hover { color: var(--teks); }
+  .nav-btn.active {
+    color: var(--merah);
+    border-bottom-color: var(--merah);
+    font-weight: 500;
+  }
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--merah);
+    flex-shrink: 0;
+  }
+
+  /* MAIN CONTENT */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+
+  /* SECTION */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* SECTION HEADER */
+  .sec-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--abu);
+  }
+  .sec-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    color: var(--abu);
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: -8px;
+  }
+  .sec-info {}
+  .sec-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--merah);
+    margin-bottom: 6px;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .sec-desc {
+    font-size: 14px;
+    color: var(--teks-muda);
+    line-height: 1.7;
+  }
+
+  /* CARDS */
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  @media (max-width: 600px) { .card-grid { grid-template-columns: 1fr; } .header-subtitle { display:none; } }
+  .card {
+    background: var(--krem);
+    border: 1px solid var(--abu);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--merah-gelap);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title::before {
+    content: '';
+    width: 3px; height: 14px;
+    background: var(--merah);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .card ul { list-style: none; }
+  .card ul li {
+    font-size: 13px;
+    color: var(--teks-muda);
+    line-height: 1.6;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--abu);
+    display: flex;
+    gap: 8px;
+  }
+  .card ul li:last-child { border-bottom: none; }
+  .card ul li::before { content: '—'; color: var(--emas); flex-shrink: 0; }
+
+  /* FULL CARD */
+  .card-full {
+    background: var(--krem);
+    border: 1px solid var(--abu);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card-full p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--teks-muda);
+    margin-bottom: 12px;
+  }
+  .card-full p:last-child { margin-bottom: 0; }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: var(--merah-gelap);
+    color: var(--putih);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .highlight-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--emas);
+    margin-bottom: 8px;
+  }
+  .highlight p {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+  }
+  .highlight strong { color: var(--emas); font-weight: 500; }
+
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin-bottom: 24px; border: 1px solid var(--abu); border-radius: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: var(--merah-gelap);
+    color: var(--putih);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--abu);
+    color: var(--teks-muda);
+    line-height: 1.5;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--krem); }
+
+  /* NUMBERED LIST */
+  .num-list { counter-reset: item; list-style: none; margin-bottom: 24px; }
+  .num-list li {
+    counter-increment: item;
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--abu);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--teks-muda);
+  }
+  .num-list li:last-child { border-bottom: none; }
+  .num-list li::before {
+    content: counter(item, decimal-leading-zero);
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--merah);
+    flex-shrink: 0;
+    line-height: 1.2;
+    min-width: 28px;
+  }
+
+  /* SILA BOX */
+  .sila-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  @media (max-width: 600px) { .sila-grid { grid-template-columns: 1fr; } }
+  .sila-card {
+    border: 1px solid var(--abu);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .sila-head {
+    background: var(--merah);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sila-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--putih);
+    line-height: 1;
+    min-width: 22px;
+  }
+  .sila-nama {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--putih);
+    line-height: 1.3;
+  }
+  .sila-body {
+    background: var(--krem);
+    padding: 12px 16px;
+  }
+  .sila-body ul { list-style: none; }
+  .sila-body ul li {
+    font-size: 12.5px;
+    color: var(--teks-muda);
+    padding: 3px 0;
+    line-height: 1.5;
+    display: flex;
+    gap: 6px;
+  }
+  .sila-body ul li::before { content: '·'; color: var(--merah); font-size: 18px; line-height: 1; }
+
+  /* PASAL ACCORDION */
+  .accordion { margin-bottom: 8px; border: 1px solid var(--abu); border-radius: 8px; overflow: hidden; }
+  .acc-head {
+    background: var(--krem);
+    padding: 12px 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--teks);
+    transition: background 0.2s;
+    user-select: none;
+  }
+  .acc-head:hover { background: var(--abu); }
+  .acc-head.open { background: var(--merah-gelap); color: var(--putih); }
+  .acc-arrow { font-size: 10px; transition: transform 0.2s; }
+  .acc-head.open .acc-arrow { transform: rotate(180deg); color: var(--emas); }
+  .acc-body {
+    display: none;
+    padding: 16px 18px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--teks-muda);
+    background: var(--putih);
+    border-top: 1px solid var(--abu);
+  }
+  .acc-body.open { display: block; }
+  .acc-body strong { color: var(--merah-gelap); font-weight: 500; }
+  .acc-body ul { list-style: none; margin-top: 8px; }
+  .acc-body ul li {
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px dashed var(--abu);
+  }
+  .acc-body ul li:last-child { border-bottom: none; }
+  .acc-body ul li::before { content: '▸'; color: var(--merah); font-size: 10px; margin-top: 4px; flex-shrink: 0; }
+
+  /* SECTION SUBHEADER */
+  .subhead {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--teks);
+    margin: 28px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--merah);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .subhead span { font-size: 12px; font-family: 'DM Sans', sans-serif; color: var(--abu-tua); font-weight: 400; }
+
+  /* TIPS */
+  .tips-box {
+    background: linear-gradient(135deg, var(--biru) 0%, #0D3349 100%);
+    color: var(--putih);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .tips-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #7FB3D3;
+    margin-bottom: 10px;
+  }
+  .tips-box ul { list-style: none; }
+  .tips-box ul li {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.85);
+    padding: 5px 0;
+    display: flex;
+    gap: 10px;
+    line-height: 1.6;
+  }
+  .tips-box ul li::before { content: '✓'; color: #7FB3D3; flex-shrink: 0; }
+
+  /* LEMBAGA TABLE */
+  .lem-card {
+    border: 1px solid var(--abu);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .lem-head {
+    padding: 12px 18px;
+    font-weight: 500;
+    font-size: 13.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lem-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .lem-body {
+    padding: 12px 18px;
+    background: var(--krem);
+    font-size: 13px;
+    color: var(--teks-muda);
+    line-height: 1.6;
+  }
+  .lem-row { display: flex; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(--abu); }
+  .lem-row:last-child { border-bottom: none; }
+  .lem-key { min-width: 100px; font-weight: 500; color: var(--teks); flex-shrink: 0; }
+
+  /* PROGRESS BAR */
+  .progress-wrap { margin-bottom: 32px; }
+  .progress-bar-bg {
+    height: 4px;
+    background: var(--abu);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .progress-bar-fill { height: 100%; background: var(--merah); border-radius: 2px; }
+  .progress-label { font-size: 11px; color: var(--abu-tua); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-badge">TWK</div>
+    <div class="header-title">Modul Belajar Tes Wawasan Kebangsaan</div>
+    <div class="header-subtitle">CPNS 2026 · 35 soal · PG 65</div>
+  </div>
+</div>
+
+<div class="nav-wrap">
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showSection('pancasila', this)"><span class="nav-dot"></span>Pancasila</button>
+    <button class="nav-btn" onclick="showSection('uud', this)">UUD 1945</button>
+    <button class="nav-btn" onclick="showSection('nkri', this)">NKRI &amp; Bhineka</button>
+    <button class="nav-btn" onclick="showSection('nasionalisme', this)">Nasionalisme</button>
+    <button class="nav-btn" onclick="showSection('lembaga', this)">Lembaga Negara</button>
+    <button class="nav-btn" onclick="showSection('sejarah', this)">Sejarah</button>
+    <button class="nav-btn" onclick="showSection('hukum', this)">Hukum &amp; Demokrasi</button>
+  </nav>
+</div>
+
+<div class="main">
+
+<!-- ======================== PANCASILA ======================== -->
+<div id="pancasila" class="section active">
+  <div class="sec-header">
+    <div class="sec-num">01</div>
+    <div class="sec-info">
+      <div class="sec-label">Prioritas 1 — paling sering keluar</div>
+      <div class="sec-title">Pancasila</div>
+      <div class="sec-desc">Dasar negara, pandangan hidup bangsa, dan sumber dari segala sumber hukum. Kuasai sila, butir pengamalan, dan sejarah perumusannya.</div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <div class="highlight-label">Kunci hafalan</div>
+    <p>Pancasila ditetapkan pada <strong>18 Agustus 1945</strong> oleh PPKI. Rumusan resmi terdapat dalam <strong>Pembukaan UUD 1945 alinea IV</strong>. Istilah "Pancasila" pertama kali dicetuskan oleh <strong>Ir. Soekarno pada 1 Juni 1945</strong> dalam sidang BPUPKI.</p>
+  </div>
+
+  <div class="subhead">Lima Sila &amp; Butir Pengamalan <span>masing-masing sila memiliki butir pengamalan</span></div>
+  <div class="sila-grid">
+    <div class="sila-card">
+      <div class="sila-head"><div class="sila-num">I</div><div class="sila-nama">Ketuhanan Yang Maha Esa</div></div>
+      <div class="sila-body"><ul>
+        <li>Percaya &amp; takwa kepada Tuhan YME sesuai agama masing-masing</li>
+        <li>Hormat-menghormati antar pemeluk agama</li>
+        <li>Tidak memaksakan agama kepada orang lain</li>
+        <li>Tidak mencampuradukkan kepercayaan</li>
+        <li>Mengembangkan sikap saling menghormati kebebasan beribadah</li>
+      </ul></div>
+    </div>
+    <div class="sila-card">
+      <div class="sila-head"><div class="sila-num">II</div><div class="sila-nama">Kemanusiaan yang Adil dan Beradab</div></div>
+      <div class="sila-body"><ul>
+        <li>Mengakui persamaan derajat sesama manusia</li>
+        <li>Saling mencintai sesama manusia</li>
+        <li>Mengembangkan sikap tenggang rasa</li>
+        <li>Tidak semena-mena terhadap orang lain</li>
+        <li>Menjunjung tinggi nilai kemanusiaan</li>
+        <li>Berani membela kebenaran &amp; keadilan</li>
+      </ul></div>
+    </div>
+    <div class="sila-card">
+      <div class="sila-head"><div class="sila-num">III</div><div class="sila-nama">Persatuan Indonesia</div></div>
+      <div class="sila-body"><ul>
+        <li>Menempatkan persatuan di atas kepentingan pribadi/golongan</li>
+        <li>Rela berkorban demi bangsa dan negara</li>
+        <li>Cinta tanah air &amp; bangsa</li>
+        <li>Bangga sebagai bangsa Indonesia</li>
+        <li>Memajukan pergaulan demi persatuan bangsa</li>
+      </ul></div>
+    </div>
+    <div class="sila-card">
+      <div class="sila-head"><div class="sila-num">IV</div><div class="sila-nama">Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan</div></div>
+      <div class="sila-body"><ul>
+        <li>Mengutamakan musyawarah untuk mufakat</li>
+        <li>Tidak memaksakan kehendak kepada orang lain</li>
+        <li>Menghormati &amp; menjunjung tinggi keputusan musyawarah</li>
+        <li>Bertanggung jawab dalam melaksanakan keputusan</li>
+        <li>Musyawarah diliputi semangat kekeluargaan</li>
+      </ul></div>
+    </div>
+    <div class="sila-card" style="grid-column: span 2;">
+      <div class="sila-head" style="background: var(--merah-gelap);"><div class="sila-num">V</div><div class="sila-nama">Keadilan Sosial bagi Seluruh Rakyat Indonesia</div></div>
+      <div class="sila-body"><ul>
+        <li>Mengembangkan perbuatan yang mencerminkan sikap kekeluargaan &amp; gotong royong</li>
+        <li>Bersikap adil kepada semua orang</li>
+        <li>Menjaga keseimbangan hak dan kewajiban</li>
+        <li>Menghormati hak-hak orang lain</li>
+        <li>Tidak bergaya hidup mewah dan boros</li>
+        <li>Tidak melakukan perbuatan yang merugikan kepentingan umum</li>
+        <li>Suka melakukan kegiatan untuk kepentingan bersama</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="subhead">Sejarah Perumusan</div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Tanggal</th><th>Peristiwa</th><th>Keterangan</th></tr>
+      <tr><td>29 Mei 1945</td><td>Sidang BPUPKI I (hari pertama)</td><td>Mr. Muhammad Yamin mengusulkan 5 dasar negara secara lisan</td></tr>
+      <tr><td>1 Juni 1945</td><td>Pidato Soekarno</td><td>Pertama kali kata "Pancasila" diucapkan; 5 dasar: Kebangsaan, Internasionalisme, Mufakat, Kesejahteraan, Ketuhanan</td></tr>
+      <tr><td>22 Juni 1945</td><td>Piagam Jakarta</td><td>Dirumuskan oleh Panitia 9; sila pertama: "…dengan kewajiban menjalankan syariat Islam bagi pemeluk-pemeluknya"</td></tr>
+      <tr><td>18 Agustus 1945</td><td>Penetapan Pancasila oleh PPKI</td><td>Sila pertama diubah menjadi "Ketuhanan Yang Maha Esa"; rumusan final dalam Pembukaan UUD 1945</td></tr>
+    </table>
+  </div>
+
+  <div class="subhead">Fungsi &amp; Kedudukan Pancasila</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">Fungsi utama</div>
+      <ul>
+        <li>Dasar negara (staatsfundamentalnorm)</li>
+        <li>Pandangan hidup bangsa (weltanschauung)</li>
+        <li>Sumber dari segala sumber hukum</li>
+        <li>Kepribadian bangsa Indonesia</li>
+        <li>Perjanjian luhur bangsa Indonesia</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Yang harus diingat</div>
+      <ul>
+        <li>BPUPKI dibentuk 1 Maret 1945, diketuai dr. Radjiman Wedyodiningrat</li>
+        <li>PPKI dibentuk 7 Agustus 1945, diketuai Soekarno</li>
+        <li>Panitia 9: diketuai Soekarno, wakil Hatta</li>
+        <li>Hari Kesaktian Pancasila: 1 Oktober</li>
+        <li>Hari Lahir Pancasila: 1 Juni</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tips-box">
+    <div class="tips-label">Tips soal Pancasila</div>
+    <ul>
+      <li>Soal sering berbentuk kasus: "Sikap yang paling sesuai sila ke-... adalah..."</li>
+      <li>Bedakan istilah: dasar negara vs pandangan hidup vs ideologi</li>
+      <li>Hafal urutan butir pengamalan — sering keluar soal "butir ke berapa dari sila ke berapa"</li>
+      <li>Piagam Jakarta ≠ Pancasila resmi — sering dijadikan pengecoh</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================== UUD 1945 ======================== -->
+<div id="uud" class="section">
+  <div class="sec-header">
+    <div class="sec-num">02</div>
+    <div class="sec-info">
+      <div class="sec-label">Prioritas 1 — wajib kuasai pasal-pasal kunci</div>
+      <div class="sec-title">UUD NRI 1945</div>
+      <div class="sec-desc">Konstitusi tertulis negara Indonesia. Telah diamandemen 4 kali (1999–2002). Kuasai isi pasal-pasal krusial, terutama yang berkaitan dengan lembaga negara dan hak warga negara.</div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <div class="highlight-label">Fakta penting amandemen</div>
+    <p>UUD 1945 diamandemen <strong>4 kali</strong> oleh MPR: <strong>1999, 2000, 2001, 2002</strong>. Perubahan utama: menghapus kewenangan MPR menetapkan GBHN, membentuk MK dan KY, masa jabatan presiden max <strong>2 periode × 5 tahun</strong>, DPR pegang kekuasaan membentuk UU (bukan presiden).</p>
+  </div>
+
+  <div class="subhead">Pasal-Pasal Wajib Dihafal</div>
+
+  <div class="accordion"><div class="acc-head" onclick="toggleAcc(this)">Pasal 1 — Bentuk &amp; Kedaulatan Negara <span class="acc-arrow">▼</span></div>
+  <div class="acc-body"><strong>Pasal 1 ayat 1:</strong> "Negara Indonesia ialah Negara Kesatuan, yang berbentuk Republik." <br><strong>Pasal 1 ayat 2:</strong> "Kedaulatan berada di tangan rakyat dan dilaksanakan menurut Undang-Undang Dasar." <br><strong>Pasal 1 ayat 3:</strong> "Negara Indonesia adalah negara hukum."</div></div>
+
+  <div class="accordion"><div class="acc-head" onclick="toggleAcc(this)">Pasal 2–3 — MPR <span class="acc-arrow">▼</span></div>
+  <div class="acc-body"><strong>Pasal 2 ayat 1:</strong> MPR terdiri atas anggota DPR dan DPD.<br><strong>Pasal 3 ayat 1:</strong> MPR berwenang mengubah dan menetapkan UUD.<br><strong>Pasal 3 ayat 2:</strong> MPR melantik Presiden dan/atau Wakil Presiden.<br><strong>Pasal 3 ayat 3:</strong> MPR hanya dapat memberhentikan Presiden/Wapres dalam masa jabatan menurut UUD.</div></div>
+
+  <div class="accordion"><div class="acc-head" onclick="toggleAcc(this)">Pasal 4–8 — Kekuasaan Presiden <span class="acc-arrow">▼</span></div>
+  <div class="acc-body"><strong>Pasal 4:</strong> Presiden memegang kekuasaan pemerintahan; dibantu oleh Wakil Presiden.<br><strong>Pasal 7:</strong> Presiden dan Wakil Presiden memegang jabatan selama 5 tahun, dapat dipilih kembali hanya untuk 1 kali masa jabatan.<br><strong>Pasal 7A:</strong> Presiden/Wapres dapat diberhentikan jika terbukti melanggar hukum (melalui MK dan MPR).<br><strong>Pasal 8:</strong> Jika Presiden mangkat/berhenti, digantikan Wapres.</div></div>
+
+  <div class="accordion"><div class="acc-head" onclick="toggleAcc(this)">Pasal 17 — Kementerian Negara <span class="acc-arrow">▼</span></div>
+  <div class="acc-body"><strong>Pasal 17 ayat 1:</strong> Presiden dibantu oleh menteri-menteri negara.<br><strong>Pasal 17 ayat 2:</strong> Menteri-menteri diangkat dan diberhentikan oleh Presiden.<br><strong>Pasal 17 ayat 3:</strong> Setiap menteri membidangi urusan tertentu.<br><em>Penting:</em> Jumlah &amp; nama kementerian diatur dalam UU (bukan UUD), sehingga bisa berubah setiap pemerintahan.</div></div>
+
+  <div class="accordion"><div class="acc-head" onclick="toggleAcc(this)">Pasal 18 — Pemerintahan Daerah <span class="acc-arrow">▼</span></div>
+  <div class="acc-body"><strong>Pasal 18 ayat 1:</strong> NKRI dibagi atas daerah-daerah provinsi, dan daerah provinsi dibagi atas kabupaten &amp; kota.<br><strong>Pasal 18 ayat 2:</strong> Pemerintahan daerah mengurus sendiri urusan pemerintahan menurut asas otonomi dan tugas pembantuan.<br><strong>Pasal 18B:</strong> Negara mengakui satuan pemerintahan daerah yang bersifat khusus (DIY, Aceh, Papua, dll.)</div></div>
+
+  <div class="accordion"><div class="acc-head" onclick="toggleAcc(this)">Pasal 27–34 — Hak &amp; Kewajiban Warga Negara <span class="acc-arrow">▼</span></div>
+  <div class="acc-body"><ul>
+    <li><strong>Pasal 27 ayat 1:</strong> Segala warga negara bersamaan kedudukannya di dalam hukum dan pemerintahan</li>
+    <li><strong>Pasal 27 ayat 2:</strong> Tiap-tiap warga negara berhak atas pekerjaan dan penghidupan yang layak</li>
+    <li><strong>Pasal 27 ayat 3:</strong> Setiap WN berhak dan wajib ikut serta dalam upaya pembelaan negara</li>
+    <li><strong>Pasal 28A–J:</strong> Hak Asasi Manusia (hidup, berpendapat, beragama, pendidikan, dll.)</li>
+    <li><strong>Pasal 28I ayat 1:</strong> Hak untuk hidup, tidak disiksa, kemerdekaan pikiran adalah HAM yang tidak dapat dikurangi dalam keadaan apapun</li>
+    <li><strong>Pasal 30:</strong> Hak &amp; kewajiban ikut serta dalam pertahanan &amp; keamanan negara</li>
+    <li><strong>Pasal 31:</strong> Setiap WN berhak mendapat pendidikan; pemerintah wajib membiayai pendidikan dasar</li>
+    <li><strong>Pasal 33:</strong> Perekonomian berdasar asas kekeluargaan; SDA dikuasai negara untuk kemakmuran rakyat</li>
+    <li><strong>Pasal 34:</strong> Fakir miskin &amp; anak-anak terlantar dipelihara negara</li>
+  </ul></div></div>
+
+  <div class="subhead">Struktur UUD 1945</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">Sistematika UUD 1945</div>
+      <ul>
+        <li>Pembukaan (4 alinea) — tidak bisa diubah</li>
+        <li>Batang Tubuh: 21 Bab, 73 pasal</li>
+        <li>Aturan Peralihan: 3 pasal</li>
+        <li>Aturan Tambahan: 2 pasal</li>
+        <li>Penjelasan (dihapus sejak amandemen)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Isi 4 Alinea Pembukaan</div>
+      <ul>
+        <li>Alinea I: kemerdekaan adalah hak segala bangsa</li>
+        <li>Alinea II: perjuangan kemerdekaan Indonesia</li>
+        <li>Alinea III: pernyataan kemerdekaan Indonesia</li>
+        <li>Alinea IV: tujuan negara + dasar negara (Pancasila)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tips-box">
+    <div class="tips-label">Tips soal UUD 1945</div>
+    <ul>
+      <li>Bedakan: MPR (konstitutif), DPR (legislatif), Presiden (eksekutif), MA/MK (yudikatif)</li>
+      <li>Pembukaan UUD 1945 tidak dapat diubah — kalau ada soal "apa yang bisa diubah MPR?" jawabannya bukan Pembukaan</li>
+      <li>Setelah amandemen: kekuasaan membentuk UU ada di DPR bersama Presiden (bukan Presiden sendiri)</li>
+      <li>Pasal 28I ayat 1 = hak yang TIDAK bisa dikurangi — sering jadi materi soal</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================== NKRI & BHINEKA ======================== -->
+<div id="nkri" class="section">
+  <div class="sec-header">
+    <div class="sec-num">03</div>
+    <div class="sec-info">
+      <div class="sec-label">Prioritas 2 — banyak muncul dalam soal kasus</div>
+      <div class="sec-title">NKRI &amp; Bhineka Tunggal Ika</div>
+      <div class="sec-desc">Negara Kesatuan Republik Indonesia dan semboyan persatuan dalam keberagaman. Pelajari prinsip integrasi bangsa, ancaman disintegrasi, dan makna kebhinekaan.</div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <div class="highlight-label">Semboyan Garuda Pancasila</div>
+    <p>"Bhineka Tunggal Ika" artinya <strong>Berbeda-beda tetapi tetap satu</strong>. Berasal dari Kitab Sutasoma karangan <strong>Mpu Tantular</strong> (abad ke-14, era Majapahit). Kalimat lengkapnya: <em>"Bhineka Tunggal Ika, Tan Hana Dharma Mangrwa"</em> (walaupun berbeda-beda, tidak ada kebenaran yang mendua).</p>
+  </div>
+
+  <div class="subhead">Prinsip NKRI</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">Karakteristik NKRI</div>
+      <ul>
+        <li>Bentuk negara: Kesatuan (bukan federasi)</li>
+        <li>Bentuk pemerintahan: Republik</li>
+        <li>Kedaulatan: di tangan rakyat</li>
+        <li>Sistem pemerintahan: Presidensial</li>
+        <li>Ideologi negara: Pancasila</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Prinsip persatuan bangsa</div>
+      <ul>
+        <li>Satu nusa, satu bangsa, satu bahasa (Sumpah Pemuda 1928)</li>
+        <li>Asas Wawasan Nusantara</li>
+        <li>Otonomi daerah bukan separatisme</li>
+        <li>Keberagaman sebagai kekuatan, bukan kelemahan</li>
+        <li>NKRI harga mati — tidak bisa diubah (Pasal 37 ayat 5 UUD)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subhead">Wawasan Nusantara</div>
+  <div class="card-full">
+    <p><strong>Wawasan Nusantara</strong> adalah cara pandang bangsa Indonesia terhadap diri dan lingkungannya berdasarkan Pancasila dan UUD 1945. Indonesia dipandang sebagai satu kesatuan <strong>politik, ekonomi, sosial budaya, dan pertahanan-keamanan</strong> (POLEKSOSBUD-HANKAM).</p>
+    <p>Tujuan Wawasan Nusantara: <strong>ke dalam</strong> — mewujudkan persatuan dan kesatuan; <strong>ke luar</strong> — mewujudkan ketertiban dan perdamaian dunia.</p>
+    <p>Asas Wawasan Nusantara: kepentingan bersama, keadilan, kejujuran, solidaritas, kerjasama, dan kesetiaan.</p>
+  </div>
+
+  <div class="subhead">Ancaman terhadap NKRI &amp; Cara Menghadapinya</div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Jenis ancaman</th><th>Contoh</th><th>Cara menghadapi</th></tr>
+      <tr><td>Separatisme</td><td>Gerakan ingin memisahkan diri dari NKRI</td><td>Penegakan hukum, dialog, pembangunan merata</td></tr>
+      <tr><td>Radikalisme</td><td>Paham ekstrem yang bertentangan dengan Pancasila</td><td>Deradikalisasi, penguatan ideologi Pancasila</td></tr>
+      <tr><td>Konflik SARA</td><td>Konflik berbasis suku, agama, ras, antargolongan</td><td>Dialog antarumat, toleransi, penegakan hukum</td></tr>
+      <tr><td>Korupsi &amp; KKN</td><td>Merusak kepercayaan publik &amp; integritas bangsa</td><td>Penegakan hukum, transparansi, partisipasi rakyat</td></tr>
+      <tr><td>Disinformasi</td><td>Hoaks &amp; ujaran kebencian memecah belah</td><td>Literasi digital, klarifikasi, sanksi hukum</td></tr>
+    </table>
+  </div>
+
+  <div class="subhead">Keberagaman Indonesia</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">Fakta keberagaman</div>
+      <ul>
+        <li>±1.340 suku bangsa di Indonesia</li>
+        <li>±700+ bahasa daerah</li>
+        <li>6 agama resmi yang diakui negara</li>
+        <li>34 provinsi (hingga 2022: 37 provinsi)</li>
+        <li>17.000+ pulau di Nusantara</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Sikap yang benar dalam keberagaman</div>
+      <ul>
+        <li>Toleransi: menghormati perbedaan</li>
+        <li>Empati: memahami perasaan orang lain</li>
+        <li>Inklusif: tidak diskriminatif</li>
+        <li>Gotong royong: kerjasama lintas perbedaan</li>
+        <li>Anti-SARA: tidak mempermasalahkan perbedaan identitas</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== NASIONALISME ======================== -->
+<div id="nasionalisme" class="section">
+  <div class="sec-header">
+    <div class="sec-num">04</div>
+    <div class="sec-info">
+      <div class="sec-label">Prioritas 2 — sering muncul soal kasus sikap ASN</div>
+      <div class="sec-title">Nasionalisme &amp; Bela Negara</div>
+      <div class="sec-desc">Rasa cinta tanah air dan kesediaan berkorban untuk negara. Pelajari konsep bela negara, integritas ASN, dan wujud nasionalisme dalam kehidupan sehari-hari.</div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <div class="highlight-label">Definisi penting</div>
+    <p><strong>Nasionalisme</strong> = paham yang menempatkan kesetiaan tertinggi pada negara bangsa. <strong>Patriotisme</strong> = kecintaan terhadap tanah air yang diwujudkan dalam tindakan nyata. <strong>Bela negara</strong> = sikap dan perilaku WNI yang dijiwai kecintaan pada NKRI berdasarkan Pancasila dan UUD 1945.</p>
+  </div>
+
+  <div class="subhead">Komponen Bela Negara (UU No. 3 Tahun 2002)</div>
+  <ol class="num-list">
+    <li><strong>Kecintaan pada tanah air</strong> — mengenal, memahami, dan menghargai wilayah, budaya, dan sejarah Indonesia</li>
+    <li><strong>Kesadaran berbangsa dan bernegara</strong> — menempatkan kepentingan bangsa di atas kepentingan pribadi/kelompok</li>
+    <li><strong>Keyakinan pada Pancasila</strong> — menjadikan Pancasila sebagai falsafah dan pedoman hidup</li>
+    <li><strong>Rela berkorban untuk bangsa</strong> — bersedia mengorbankan waktu, tenaga, dan pikiran untuk kemajuan bangsa</li>
+    <li><strong>Memiliki kemampuan bela negara</strong> — fisik, mental, maupun kemampuan teknis yang berguna bagi pertahanan negara</li>
+  </ol>
+
+  <div class="subhead">Wujud Bela Negara dalam Kehidupan</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">Bela negara non-militer</div>
+      <ul>
+        <li>Belajar &amp; bekerja dengan sungguh-sungguh</li>
+        <li>Membayar pajak tepat waktu</li>
+        <li>Menjaga kebersihan lingkungan</li>
+        <li>Menghargai produk dalam negeri</li>
+        <li>Tidak menyebarkan hoaks &amp; ujaran kebencian</li>
+        <li>Menaati peraturan perundang-undangan</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Nilai nasionalisme ASN</div>
+      <ul>
+        <li>Mengutamakan kepentingan bangsa di atas sektoral</li>
+        <li>Netral dalam politik praktis</li>
+        <li>Melayani masyarakat tanpa diskriminasi</li>
+        <li>Menjunjung nilai-nilai Pancasila dalam tugas</li>
+        <li>Menolak suap dan gratifikasi</li>
+        <li>Menjaga rahasia negara</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subhead">Sumpah Pemuda 28 Oktober 1928</div>
+  <div class="card-full">
+    <p><strong>Pertama:</strong> Kami Putra dan Putri Indonesia, mengaku bertumpah darah yang satu, <em>Tanah Air Indonesia.</em></p>
+    <p><strong>Kedua:</strong> Kami Putra dan Putri Indonesia, mengaku berbangsa yang satu, <em>Bangsa Indonesia.</em></p>
+    <p><strong>Ketiga:</strong> Kami Putra dan Putri Indonesia, menjunjung bahasa persatuan, <em>Bahasa Indonesia.</em></p>
+    <p style="margin-top:12px; font-size:13px; color:var(--abu-tua)">Kongres Pemuda II (27–28 Oktober 1928) diketuai oleh <strong>Soegondo Djojopuspito</strong>. Lagu "Indonesia Raya" pertama kali dikumandangkan oleh <strong>W.R. Supratman</strong> dalam kongres ini.</p>
+  </div>
+
+  <div class="tips-box">
+    <div class="tips-label">Tips soal Nasionalisme</div>
+    <ul>
+      <li>Soal sering berbentuk: "Sebagai ASN, sikap yang paling tepat adalah..." — pilih yang paling mengutamakan kepentingan bangsa/rakyat</li>
+      <li>Jawaban yang mengandung diskriminasi, kepentingan pribadi, atau melanggar hukum selalu SALAH</li>
+      <li>Bela negara ≠ hanya wajib militer — tekankan aspek non-militer dalam kehidupan sehari-hari</li>
+      <li>Bedakan: patriotisme (cinta tanah air) vs chauvinisme (bangga berlebihan hingga meremehkan bangsa lain)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================== LEMBAGA NEGARA ======================== -->
+<div id="lembaga" class="section">
+  <div class="sec-header">
+    <div class="sec-num">05</div>
+    <div class="sec-info">
+      <div class="sec-label">Prioritas 3 — struktur kelembagaan negara</div>
+      <div class="sec-title">Lembaga-Lembaga Negara</div>
+      <div class="sec-desc">Susunan dan kewenangan lembaga negara pasca-amandemen UUD 1945. Kuasai fungsi, keanggotaan, dan hubungan antar lembaga.</div>
+    </div>
+  </div>
+
+  <div class="subhead">Lembaga Negara Utama</div>
+
+  <div class="lem-card">
+    <div class="lem-head" style="background: #FDECEA;"><span style="font-size:20px">🏛</span> MPR — Majelis Permusyawaratan Rakyat <span class="lem-badge" style="background:#FADBD8; color:#922B21;">Tertinggi</span></div>
+    <div class="lem-body">
+      <div class="lem-row"><span class="lem-key">Anggota</span><span>DPR + DPD (±711 orang)</span></div>
+      <div class="lem-row"><span class="lem-key">Masa jabatan</span><span>5 tahun</span></div>
+      <div class="lem-row"><span class="lem-key">Wewenang</span><span>Mengubah &amp; menetapkan UUD; melantik &amp; memberhentikan Presiden/Wapres; memilih Presiden/Wapres jika lowong</span></div>
+      <div class="lem-row"><span class="lem-key">Catatan</span><span>Sejak amandemen, MPR bukan lembaga tertinggi — semua lembaga setara (horizontal)</span></div>
+    </div>
+  </div>
+
+  <div class="lem-card">
+    <div class="lem-head" style="background: #EAF2FF;"><span style="font-size:20px">📋</span> DPR — Dewan Perwakilan Rakyat <span class="lem-badge" style="background:#D6EAF8; color:#1B4F72;">Legislatif</span></div>
+    <div class="lem-body">
+      <div class="lem-row"><span class="lem-key">Anggota</span><span>575 orang (dipilih lewat pemilu)</span></div>
+      <div class="lem-row"><span class="lem-key">Wewenang</span><span>Membentuk UU bersama Presiden; menetapkan APBN; mengawasi pemerintah; hak interpelasi, angket, dan menyatakan pendapat</span></div>
+      <div class="lem-row"><span class="lem-key">Fungsi</span><span>Legislasi, anggaran, pengawasan</span></div>
+    </div>
+  </div>
+
+  <div class="lem-card">
+    <div class="lem-head" style="background: #E8F8F5;"><span style="font-size:20px">🌏</span> DPD — Dewan Perwakilan Daerah <span class="lem-badge" style="background:#D1F2EB; color:#1A6B3C;">Daerah</span></div>
+    <div class="lem-body">
+      <div class="lem-row"><span class="lem-key">Anggota</span><span>4 orang per provinsi (34 provinsi × 4 = 136 orang)</span></div>
+      <div class="lem-row"><span class="lem-key">Wewenang</span><span>Mengajukan RUU terkait daerah; memberi pertimbangan kepada DPR atas RUU APBN, pajak, pendidikan</span></div>
+      <div class="lem-row"><span class="lem-key">Catatan</span><span>DPD tidak bisa membuat UU sendiri — hanya bisa mengusulkan dan memberi pertimbangan</span></div>
+    </div>
+  </div>
+
+  <div class="lem-card">
+    <div class="lem-head" style="background: #FEF9E7;"><span style="font-size:20px">⚖️</span> MA — Mahkamah Agung <span class="lem-badge" style="background:#FEF3CD; color:#7D6608;">Yudikatif</span></div>
+    <div class="lem-body">
+      <div class="lem-row"><span class="lem-key">Wewenang</span><span>Mengadili pada tingkat kasasi; menguji peraturan di bawah UU terhadap UU; mengawasi badan peradilan</span></div>
+      <div class="lem-row"><span class="lem-key">Lingkungan peradilan</span><span>Peradilan umum, militer, agama, tata usaha negara</span></div>
+    </div>
+  </div>
+
+  <div class="lem-card">
+    <div class="lem-head" style="background: #F4ECF7;"><span style="font-size:20px">🔨</span> MK — Mahkamah Konstitusi <span class="lem-badge" style="background:#E8DAEF; color:#5B2C6F;">Konstitusional</span></div>
+    <div class="lem-body">
+      <div class="lem-row"><span class="lem-key">Anggota</span><span>9 hakim konstitusi (3 dari MA, 3 DPR, 3 Presiden)</span></div>
+      <div class="lem-row"><span class="lem-key">Wewenang</span><span>Menguji UU terhadap UUD; memutus sengketa kewenangan lembaga negara; memutus pembubaran parpol; memutus PHPU (Perselisihan Hasil Pemilihan Umum); memberi putusan atas pendapat DPR mengenai dugaan pelanggaran Presiden</span></div>
+    </div>
+  </div>
+
+  <div class="lem-card">
+    <div class="lem-head" style="background: #EBF5FB;"><span style="font-size:20px">🔍</span> BPK — Badan Pemeriksa Keuangan <span class="lem-badge" style="background:#D6EAF8; color:#1B4F72;">Audit</span></div>
+    <div class="lem-body">
+      <div class="lem-row"><span class="lem-key">Wewenang</span><span>Memeriksa pengelolaan dan tanggung jawab keuangan negara</span></div>
+      <div class="lem-row"><span class="lem-key">Hasil pemeriksaan</span><span>Diserahkan kepada DPR, DPD, dan DPRD; jika ada indikasi tindak pidana dilaporkan ke penegak hukum</span></div>
+    </div>
+  </div>
+
+  <div class="lem-card">
+    <div class="lem-head" style="background: #FDEDEC;"><span style="font-size:20px">🧑‍⚖️</span> KY — Komisi Yudisial <span class="lem-badge" style="background:#FADBD8; color:#922B21;">Pengawas</span></div>
+    <div class="lem-body">
+      <div class="lem-row"><span class="lem-key">Anggota</span><span>7 orang (diusulkan KY, disetujui DPR, ditetapkan Presiden)</span></div>
+      <div class="lem-row"><span class="lem-key">Wewenang</span><span>Mengusulkan pengangkatan hakim agung; menjaga &amp; menegakkan kehormatan, keluhuran martabat, serta perilaku hakim</span></div>
+    </div>
+  </div>
+
+  <div class="tips-box">
+    <div class="tips-label">Tips soal Lembaga Negara</div>
+    <ul>
+      <li>MK ≠ MA: MK menguji UU vs UUD; MA menguji peraturan di bawah UU vs UU</li>
+      <li>KY mengawasi hakim — kecuali hakim MK (MK punya pengawasan internal sendiri)</li>
+      <li>DPD tidak bisa membuat UU — hanya mengusulkan &amp; memberi pertimbangan</li>
+      <li>BPK independen — tidak di bawah DPR/Presiden meskipun laporannya ke DPR</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================== SEJARAH ======================== -->
+<div id="sejarah" class="section">
+  <div class="sec-header">
+    <div class="sec-num">06</div>
+    <div class="sec-info">
+      <div class="sec-label">Prioritas 4 — sejarah perjuangan bangsa</div>
+      <div class="sec-title">Sejarah Nasional Indonesia</div>
+      <div class="sec-desc">Tonggak-tonggak penting perjalanan bangsa Indonesia dari masa perjuangan kemerdekaan hingga era reformasi.</div>
+    </div>
+  </div>
+
+  <div class="subhead">Tonggak Sejarah Krusial</div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Tanggal / Periode</th><th>Peristiwa</th><th>Keterangan penting</th></tr>
+      <tr><td>20 Mei 1908</td><td>Hari Kebangkitan Nasional</td><td>Berdirinya Budi Utomo oleh dr. Soetomo; organisasi nasional modern pertama</td></tr>
+      <tr><td>28 Oktober 1928</td><td>Sumpah Pemuda</td><td>Satu nusa, satu bangsa, satu bahasa Indonesia; Kongres Pemuda II</td></tr>
+      <tr><td>1 Maret 1945</td><td>BPUPKI dibentuk</td><td>Badan Penyelidik Usaha Persiapan Kemerdekaan Indonesia; ketua Dr. Radjiman</td></tr>
+      <tr><td>1 Juni 1945</td><td>Hari Lahir Pancasila</td><td>Pidato Soekarno dalam sidang BPUPKI</td></tr>
+      <tr><td>17 Agustus 1945</td><td>Proklamasi Kemerdekaan</td><td>Dibacakan Soekarno-Hatta di Jl. Pegangsaan Timur 56, Jakarta; pukul 10.00 WIB</td></tr>
+      <tr><td>18 Agustus 1945</td><td>UUD 1945 &amp; Pancasila ditetapkan</td><td>PPKI menetapkan UUD, memilih Soekarno-Hatta sebagai Presiden-Wapres</td></tr>
+      <tr><td>10 November 1945</td><td>Hari Pahlawan</td><td>Pertempuran Surabaya melawan Sekutu; pidato Bung Tomo membakar semangat</td></tr>
+      <tr><td>27 Des 1949</td><td>Penyerahan kedaulatan RIS</td><td>Belanda mengakui kedaulatan Indonesia; bentuk negara sempat jadi RIS (Republik Indonesia Serikat)</td></tr>
+      <tr><td>17 Agustus 1950</td><td>Kembali ke NKRI</td><td>RIS dibubarkan; Indonesia kembali menjadi Negara Kesatuan</td></tr>
+      <tr><td>5 Juli 1959</td><td>Dekret Presiden</td><td>Soekarno kembali ke UUD 1945; pemberlakuan Demokrasi Terpimpin</td></tr>
+      <tr><td>30 Sep 1965</td><td>G30S/PKI</td><td>Percobaan kudeta; 7 jenderal TNI AD gugur; dijadikan dasar pergantian kekuasaan ke Soeharto</td></tr>
+      <tr><td>11 Maret 1966</td><td>Supersemar</td><td>Surat Perintah 11 Maret — Soekarno serahkan kekuasaan ke Soeharto; awal Orde Baru</td></tr>
+      <tr><td>21 Mei 1998</td><td>Soeharto mundur</td><td>Akibat reformasi, Soeharto menyerahkan kekuasaan ke Wapres B.J. Habibie; awal Era Reformasi</td></tr>
+      <tr><td>1999–2002</td><td>Amandemen UUD 1945</td><td>Empat kali amandemen fundamental terhadap UUD 1945</td></tr>
+    </table>
+  </div>
+
+  <div class="subhead">Periodesasi Sistem Pemerintahan</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">Orde Lama (1945–1966)</div>
+      <ul>
+        <li>1945–1949: Negara RI berjuang mempertahankan kemerdekaan</li>
+        <li>1950–1959: Demokrasi Parlementer (sering ganti kabinet)</li>
+        <li>1959–1966: Demokrasi Terpimpin (Soekarno)</li>
+        <li>Ciri: NASAKOM (Nasionalisme, Agama, Komunisme)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Orde Baru (1966–1998)</div>
+      <ul>
+        <li>Presiden: Soeharto (32 tahun)</li>
+        <li>Stabilitas politik &amp; pertumbuhan ekonomi tinggi</li>
+        <li>Tapi: KKN, militer di politik (Dwifungsi ABRI)</li>
+        <li>Berakhir akibat krisis ekonomi 1997–1998 &amp; reformasi</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== HUKUM & DEMOKRASI ======================== -->
+<div id="hukum" class="section">
+  <div class="sec-header">
+    <div class="sec-num">07</div>
+    <div class="sec-info">
+      <div class="sec-label">Prioritas 4 — sistem hukum dan demokrasi</div>
+      <div class="sec-title">Hukum &amp; Demokrasi Indonesia</div>
+      <div class="sec-desc">Hierarki peraturan perundang-undangan, sistem demokrasi Pancasila, dan prinsip-prinsip negara hukum Indonesia.</div>
+    </div>
+  </div>
+
+  <div class="subhead">Hierarki Peraturan Perundang-undangan (UU No. 12/2011)</div>
+  <ol class="num-list">
+    <li><strong>UUD NRI 1945</strong> — konstitusi tertinggi, tidak dapat dikalahkan peraturan manapun</li>
+    <li><strong>TAP MPR</strong> — ketetapan MPR yang masih berlaku</li>
+    <li><strong>UU / Perppu</strong> — Undang-Undang atau Perpu (Peraturan Pemerintah Pengganti UU)</li>
+    <li><strong>PP</strong> — Peraturan Pemerintah (untuk melaksanakan UU)</li>
+    <li><strong>Perpres</strong> — Peraturan Presiden</li>
+    <li><strong>Perda Provinsi</strong> — Peraturan Daerah Provinsi</li>
+    <li><strong>Perda Kab/Kota</strong> — Peraturan Daerah Kabupaten/Kota</li>
+  </ol>
+
+  <div class="highlight">
+    <div class="highlight-label">Asas terpenting dalam hierarki hukum</div>
+    <p><strong>Lex superior derogat legi inferiori</strong> — peraturan yang lebih tinggi mengalahkan yang lebih rendah. <strong>Lex specialis derogat legi generali</strong> — peraturan yang lebih khusus mengalahkan yang umum. <strong>Lex posterior derogat legi priori</strong> — peraturan yang lebih baru mengalahkan yang lama (setingkat).</p>
+  </div>
+
+  <div class="subhead">Demokrasi Pancasila</div>
+  <div class="card-full">
+    <p><strong>Demokrasi Pancasila</strong> adalah sistem demokrasi yang dijiwai nilai-nilai Pancasila, khususnya sila ke-4. Berbeda dari demokrasi liberal (kebebasan penuh) maupun demokrasi komunis (kebebasan diatur negara).</p>
+    <p>Ciri khas: <strong>musyawarah mufakat</strong> sebagai cara pengambilan keputusan utama. Voting dilakukan jika mufakat tidak tercapai, dengan menghormati suara minoritas.</p>
+    <p>Prinsip: kedaulatan rakyat, kebersamaan, kekeluargaan, gotong royong, dan bertanggung jawab kepada Tuhan YME.</p>
+  </div>
+
+  <div class="subhead">Pemilihan Umum di Indonesia</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">Prinsip Pemilu (LUBERJURDIL)</div>
+      <ul>
+        <li><strong>Langsung</strong> — pemilih memilih langsung</li>
+        <li><strong>Umum</strong> — semua WNI yang memenuhi syarat</li>
+        <li><strong>Bebas</strong> — bebas dari tekanan/paksaan</li>
+        <li><strong>Rahasia</strong> — pilihan tidak diketahui orang lain</li>
+        <li><strong>Jujur</strong> — sesuai aturan, tidak curang</li>
+        <li><strong>Adil</strong> — semua diperlakukan setara</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Penyelenggara Pemilu</div>
+      <ul>
+        <li><strong>KPU</strong> — Komisi Pemilihan Umum (pelaksana)</li>
+        <li><strong>Bawaslu</strong> — Badan Pengawas Pemilu (pengawas)</li>
+        <li><strong>DKPP</strong> — Dewan Kehormatan Penyelenggara Pemilu (kode etik)</li>
+        <li>Pemilu serentak mulai 2024</li>
+        <li>Sengketa hasil Pemilu diputus MK</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subhead">HAM di Indonesia</div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Kategori HAM</th><th>Contoh hak</th><th>Dasar hukum</th></tr>
+      <tr><td>Hak sipil &amp; politik</td><td>Hak hidup, bebas dari penyiksaan, memilih, beragama</td><td>Pasal 28A–28I UUD 1945; UU No. 39/1999</td></tr>
+      <tr><td>Hak ekonomi, sosial, budaya</td><td>Hak kerja, pendidikan, kesehatan, budaya</td><td>Pasal 27, 31, 34 UUD 1945</td></tr>
+      <tr><td>Hak yang tidak bisa dikurangi</td><td>Hak hidup, tidak disiksa, kemerdekaan pikiran, tidak diperbudak</td><td>Pasal 28I ayat 1 UUD 1945</td></tr>
+    </table>
+  </div>
+
+  <div class="tips-box">
+    <div class="tips-label">Tips soal Hukum &amp; Demokrasi</div>
+    <ul>
+      <li>Urutan hierarki hukum wajib dihafal persis — sering keluar soal "di bawah PP, di atas Perda Provinsi adalah..."</li>
+      <li>Perppu setingkat UU — bisa mencabut/mengubah UU dalam keadaan genting</li>
+      <li>Bedakan Pemilu (DPR/DPD/Presiden) dengan Pilkada (Gubernur/Bupati/Walikota)</li>
+      <li>MK memutus sengketa hasil Pemilu (PHPU), bukan Bawaslu</li>
+      <li>HAM dalam Pasal 28I ayat 1 = TIDAK bisa dikurangi dalam kondisi apapun</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleAcc(head) {
+  const body = head.nextElementSibling;
+  const isOpen = head.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.acc-head.open').forEach(h => {
+    h.classList.remove('open');
+    h.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    head.classList.add('open');
+    body.classList.add('open');
+  }
+}
+</script>
+</body>
+</html>
